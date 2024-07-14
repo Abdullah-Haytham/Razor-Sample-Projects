@@ -1,0 +1,11 @@
+﻿@page
+@model University.Pages.StudentInfoModel
+@{
+    ViewData["Title"] = "Student Info";
+}
+<h1>Student Info With HTMX</h1>
+<form hx-get="/student-info" hx-target="#replace">
+    <input type="text" name="studentId" />
+    <button>Show</button>
+</form>
+<div id="replace"></div>
