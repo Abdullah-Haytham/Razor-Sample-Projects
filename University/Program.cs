@@ -1,5 +1,6 @@
 using EdgeDB;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using University.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,15 @@ builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("university"), conf
 {
     config.SchemaNamingStrategy = INamingStrategy.SnakeCaseNamingStrategy;
 });
+
+builder.Services.AddAuthentication("cookie")
+    .AddCookie("cookie", o =>
+    {
+        o.Cookie.Name = "auth";
+        o.ExpireTimeSpan = TimeSpan.FromHours(8);
+
+        o.LoginPath = "/auth/Login";
+    });
 
 var app = builder.Build();
 
@@ -98,6 +108,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 

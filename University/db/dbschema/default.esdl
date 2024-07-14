@@ -23,4 +23,11 @@ module default {
         multi link courses: Course;
         multi link students: Student;
     }
+
+    type Account{
+        required username: str{
+            constraint exclusive
+        }
+        required password: str;
+    }
 }

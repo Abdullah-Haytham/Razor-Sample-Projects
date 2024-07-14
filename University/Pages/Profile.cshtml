@@ -1,0 +1,9 @@
+﻿@page
+@model University.Pages.ProfileModel
+<h3>Profile</h3>
+@if (!string.IsNullOrEmpty(Model.Student.Name))
+{
+    <div>Name: @Model.Student.Name</div>
+    <div>Age: @Model.Student.Age</div>
+    <div>Department: @Model.Student.Department.Name</div>
+}
