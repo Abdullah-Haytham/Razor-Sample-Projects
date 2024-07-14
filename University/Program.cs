@@ -50,6 +50,7 @@ app.MapGet("/student-info", async (string studentId, EdgeDBClient client) =>
                 <div>Name: {student.Name}</div>
                 <div>Age: {student.Age}</div>
                 <div>Department: {student.Department.Name}</div>
+                <a href="/EditStudent?studentId={studentId}"></a>
             """;
             return Results.Content(html);
         }

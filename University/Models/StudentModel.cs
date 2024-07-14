@@ -7,7 +7,7 @@ namespace University.Models
         public string StudentId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public long Age { get; set; } = 0;
-        public List<CourseModel> Courses { get; set; } = new List<CourseModel>();
-        public DepartmentModel Department { get; set; } = new DepartmentModel();
+        public List<CourseModel> Courses { get; set; } = [];
+        public DepartmentModel Department { get; set; } = new();
     }
 }
