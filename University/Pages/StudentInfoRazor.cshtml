@@ -1,0 +1,16 @@
+﻿@page
+@model University.Pages.StudentInfoRazorModel
+@{
+    ViewData["Title"] = "Student Info";
+}
+<h1>Student Info With Razor</h1>
+<form method="post">
+    <input type="text" asp-for="@Model.StudentId" />
+    <button>Show</button>
+</form>
+@if (!string.IsNullOrEmpty(Model.Student.Name))
+{
+    <div>Name: @Model.Student.Name</div>
+    <div>Age: @Model.Student.Age</div>
+    <div>Department: @Model.Student.Department.Name</div>
+}
