@@ -1,4 +1,29 @@
 ﻿@page
 @model University.Pages.EditStudentModel
 @{
+    ViewData["Title"] = "Edit Student";
+}
+@if (!string.IsNullOrWhiteSpace(Model.StudentId) && !string.IsNullOrWhiteSpace(Model.Student.Name))
+{
+    <form method="post" action="/edit-student/@Model.StudentId" >
+        @Html.AntiForgeryToken()
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="@Model.Student.Name" />
+        </div>
+        
+        <div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="@Model.Student.Age" />
+        </div>
+
+        <label for="dep">Department:</label>
+        <select id="dep" name="department" value="@Model.Student.Department.Name">
+            @foreach(var dep in Model.DepartmentOptions)
+            {
+                <option value="@dep.Name">@dep.Name</option>
+            }
+        </select>
+        <button>Update</button>
+    </form>
 }

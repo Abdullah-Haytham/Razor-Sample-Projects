@@ -8,7 +8,7 @@ namespace University.Pages
     public class StudentInfoRazorModel : PageModel
     {
         private readonly EdgeDBClient _client;
-        [BindProperty]
+        [BindProperty (SupportsGet = true)]
         public string StudentId { get; set; } = string.Empty;
 
         [BindProperty]

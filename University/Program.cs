@@ -50,13 +50,40 @@ app.MapGet("/student-info", async (string studentId, EdgeDBClient client) =>
                 <div>Name: {student.Name}</div>
                 <div>Age: {student.Age}</div>
                 <div>Department: {student.Department.Name}</div>
-                <a href="/EditStudent?studentId={studentId}"></a>
+                <a href="/EditStudent?studentId={studentId}">Edit {student.Name}</a>
             """;
             return Results.Content(html);
         }
         return Results.Content("<h1>Invalid Student Id</h1>");
     }
     return Results.Content("<h1>Please Provide a student id</h1>");
+});
+
+app.MapPost("/edit-student/{studentId}", async (string studentId, EdgeDBClient client, [FromForm] string name, [FromForm] int age, [FromForm] string department) => {
+    var query = """
+    WITH
+        new_department := (
+            SELECT Department
+            FILTER .name = <str>$department
+            LIMIT 1
+        )
+    UPDATE Student
+    FILTER .student_id = <str>$studentId
+    SET {
+        name := <str>$newName,
+        age := <int32>$newAge,
+        department := new_department
+    };
+""";
+
+    await client.ExecuteAsync(query, new Dictionary<string, object?>
+{
+    {"department", department},
+    {"studentId", studentId}, // Ensure studentId is a string
+    {"newName", name},
+    {"newAge", age}
+});
+    return Results.Redirect($"/StudentInfoRazor?StudentId={studentId}");
 });
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -72,6 +99,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapRazorPages();
 
