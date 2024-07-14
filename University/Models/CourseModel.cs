@@ -2,12 +2,12 @@
 
 namespace University.Models
 {
-    public class StudentModel
+    public class CourseModel
     {
-        public string StudentId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public long Age { get; set; } = 0;
-        public List<CourseModel> Courses { get; set; } = new List<CourseModel>();
+        public string Code { get; set; } = string.Empty;
+        public long Credit { get; set; } = 0;
+        public List<StudentModel> Students { get; set; } = new List<StudentModel>();
         public DepartmentModel Department { get; set; } = new DepartmentModel();
     }
 }
