@@ -8,6 +8,6 @@ namespace University.Models
         public string Code { get; set; } = string.Empty;
         public long Credit { get; set; } = 0;
         public List<StudentModel> Students { get; set; } = [];
-        public DepartmentModel Department { get; set; } = [];
+        public DepartmentModel Department { get; set; } = new();
     }
 }
